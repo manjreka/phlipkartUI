@@ -1,25 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BaseLayout from "../Layout/BaseLayout";
 import ProductCard from "../Components/ProductCard";
+import apiService from "../API/apiServices";
 
 const Home = () => {
+  const [product, setProduct] = useState([]);
+
+  const fetchData = async () => {
+    const response = await apiService.getAll();
+    setProduct(response);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <BaseLayout className="mt-auto max-w-[65vw]">
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
+      <ul className="flex flex-wrap">
+        {product.map((each) => (
+          <ProductCard key={each._id} details={each} />
+        ))}
+      </ul>
     </BaseLayout>
   );
 };

@@ -1,11 +1,39 @@
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+const apiCallGet = async (url) => {
+  try {
+    const option = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch(url, option);
+    const data = await response.json();
+    if (response.ok) {
+      return data.message;
+    } else {
+      alert(data.error);
+    }
+  } catch (err) {
+    alert("Something went Wrong, Please try again later");
+  }
+};
 
 const apiService = {
-  getAll: async (url) => {},
-  getOne: async (url) => {},
-  post: async (url) => {},
-  put: async (url) => {},
-  delete: async (url) => {},
+  getAll: async () => {
+    const url = `${BASE_URL}/api/products/getProducts`;
+    const responseData = await apiCallGet(url);
+    return responseData;
+  },
+  getOne: async (id) => {
+    const url = `${BASE_URL}/api/products/getProduct/${id}`;
+    const responseData = await apiCallGet(url);
+    return responseData;
+  },
+  post: async (details) => {},
+  put: async (details) => {},
+  deleteOne: async (id) => {},
 };
 
 export default apiService;
