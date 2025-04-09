@@ -1,18 +1,16 @@
 import React from "react";
 
-const ProductCard = () => {
+const ProductCard = (props) => {
+  const { details } = props;
+  const { images, title, description, price, rating } = details;
   return (
     <div className="border-2 p-2 m-2 w-fit h-fit border-black">
-      <img src="" alt="" />
-      <p>heading</p>
-      <p>description</p>
+      <img src={images} alt="" />
+      <p>{title}</p>
+      <p>{description}</p>
       <div className="flex gap-2">
-        <p>Price</p>
-        <p>Discount</p>
-      </div>
-      <div className="flex gap-2">
-        <p>Rating</p>
-        <p>stock</p>
+        <p>{price}</p>
+        <p>{rating}</p>
       </div>
     </div>
   );

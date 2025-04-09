@@ -42,7 +42,7 @@ const Sidebar = ({ toggleSidebar, isOpen }) => {
           <select
             name="Category"
             className="border border-gray-300 rounded-md p-2 m-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            id=""
+            placeholder=""
           >
             <option value="">Select an option</option>
             <option value="electronics">Electronics</option>
