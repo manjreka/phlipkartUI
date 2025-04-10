@@ -3,6 +3,7 @@ import { FaShopware } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { HiLogout } from "react-icons/hi";
 import { IoPerson } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,10 +20,18 @@ const Header = () => {
           <span className="font-bold text-2xl">Shoppie</span>{" "}
         </a>
         <div className="md:flex gap-3 font-medium hidden">
-          <p>Product</p>
-          <p>Cart</p>
-          <p>Order</p>
-          <p>Whislist</p>
+          <Link to="/">
+            <p>Product</p>
+          </Link>
+          <Link to="/cart">
+            <p>Cart</p>
+          </Link>
+          <Link to="/order">
+            <p>Order</p>
+          </Link>
+          <Link to="/wishlist">
+            <p>Whislist</p>
+          </Link>
         </div>
         <div className="md:flex gap-3 font-medium hidden">
           <p>
@@ -38,18 +47,26 @@ const Header = () => {
       </nav>
       {isOpen && (
         <div className="md:hidden p-2 ms-2 me-2 bg-slate-50">
-          <p className="mb-2 text-gray-700 font-medium hover:text-blue-600">
-            Product
-          </p>
-          <p className="mb-2   text-gray-700 font-medium hover:text-blue-600">
-            Cart
-          </p>
-          <p className="mb-2  text-gray-700  font-medium hover:text-blue-600">
-            Order
-          </p>
-          <p className="mb-2  text-gray-700  font-medium hover:text-blue-600">
-            Whislist
-          </p>
+          <Link to="/">
+            <p className="mb-2 text-gray-700 font-medium hover:text-blue-600">
+              Product
+            </p>
+          </Link>
+          <Link to="/cart">
+            <p className="mb-2   text-gray-700 font-medium hover:text-blue-600">
+              Cart
+            </p>
+          </Link>
+          <Link to="/order">
+            <p className="mb-2  text-gray-700  font-medium hover:text-blue-600">
+              Order
+            </p>
+          </Link>
+          <Link to="/wishlist">
+            <p className="mb-2  text-gray-700  font-medium hover:text-blue-600">
+              Whislist
+            </p>
+          </Link>
           <hr />
           <div className="flex justify-between  text-gray-700 mt-2">
             <p className="mb-2 font-medium hover:text-blue-600">Profile</p>

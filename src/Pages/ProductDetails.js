@@ -11,7 +11,6 @@ const ProductDetails = () => {
   const { id } = params;
   const fetchProductDetails = async () => {
     const response = await apiService.getOne(id);
-    console.log(response, "2222222222222");
     setProduct(response);
   };
 
