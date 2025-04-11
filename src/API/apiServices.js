@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 const apiCallGet = async (url) => {
@@ -13,10 +14,10 @@ const apiCallGet = async (url) => {
     if (response.ok) {
       return data.message;
     } else {
-      alert(data.error);
+      toast.error(data.error);
     }
   } catch (err) {
-    alert("Something went Wrong, Please try again later");
+    toast.error("Something went Wrong, Please try again later");
   }
 };
 

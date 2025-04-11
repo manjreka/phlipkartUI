@@ -3,13 +3,19 @@ import { FaShopware } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { HiLogout } from "react-icons/hi";
 import { IoPerson } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const navigate = useNavigate();
   const toggleMenu = () => {
     setIsOpen((prevstate) => !prevstate);
+  };
+
+  const logoutUser = () => {
+    Cookies.remove("token");
+    navigate("/");
   };
 
   return (
@@ -37,7 +43,7 @@ const Header = () => {
           <p>
             <IoPerson size={25} />
           </p>
-          <button>Logout</button>
+          <button onClick={logoutUser}>Logout</button>
         </div>
         <div className="md:hidden">
           <button onClick={toggleMenu}>
@@ -70,7 +76,10 @@ const Header = () => {
           <hr />
           <div className="flex justify-between  text-gray-700 mt-2">
             <p className="mb-2 font-medium hover:text-blue-600">Profile</p>
-            <button className="mb-2 flex gap-2 items-center font-medium hover:text-blue-600">
+            <button
+              onClick={logoutUser}
+              className="mb-2 flex gap-2 items-center font-medium hover:text-blue-600"
+            >
               <HiLogout size={25} /> <span>Logout</span>
             </button>
           </div>

@@ -60,7 +60,7 @@ const Login = () => {
         onClick={onRegisterUser}
         className="bg-orange-700 p-2 m-1 rounded-md text-white font-bold"
       >
-        Register
+        Login
       </button>
       <p
         onClick={() => {
@@ -69,7 +69,7 @@ const Login = () => {
       >
         Not registered yet?
         <span className="p-2 underline text-blue-800 cursor-pointer">
-          Login
+          Register
         </span>
       </p>
     </div>
