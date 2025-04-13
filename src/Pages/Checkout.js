@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import ProductsBillingDetails from "../Components/ProductsBillingDetails";
-import ShippingDetails from "../Components/ShippingDetails";
-import PaymentDetails from "../Components/PaymentDetails";
-import OrderReview from "../Components/OrderReview";
-import OrderSuccessCard from "../Components/OrderSuccessCard";
+import ProductsBillingDetails from "../Components/Checkout/ProductBillingDetails/ProductsBillingDetails";
+import ShippingDetails from "../Components/Checkout/ShippingDetails/ShippingDetails";
+import PaymentDetails from "../Components/Checkout/Payments/PaymentDetails";
+import OrderReview from "../Components/Checkout/OrderCheckout/OrderReview";
+import OrderSuccessCard from "../Components/Checkout/OrderCheckout/OrderSuccessCard";
 
 const CheckoutRoute = () => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
 
   const increamentStep = () => {
     setStep((prevState) => prevState + 1);

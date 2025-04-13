@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Table } from "reactstrap";
-import useBillingDetails from "../Hooks/useBillingDetails";
-import { roundToTwo } from "../Utils/roundToTwo";
+import useBillingDetails from "../../../Hooks/useBillingDetails";
+import { roundToTwo } from "../../../Utils/roundToTwo";
 const ProductsBillingDetails = (props) => {
   const { incrementStep } = props;
 

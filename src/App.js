@@ -9,7 +9,7 @@ import Wishlist from "./Pages/Wishlist";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import CheckoutRoute from "./Pages/CheckoutRoute";
+import Checkout from "./Pages/Checkout";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<Order />} />
         <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/checkout" element={<CheckoutRoute />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
       <ToastContainer position="top-right" autoClose={2000} />
     </>

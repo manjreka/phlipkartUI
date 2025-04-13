@@ -9,8 +9,9 @@ const ProductDetails = () => {
 
   const params = useParams();
   const { id } = params;
+  const url = `/api/products/getProduct/${id}`;
   const fetchProductDetails = async () => {
-    const response = await apiService.getOne(id);
+    const response = await apiService.getOne(url);
     setProduct(response);
   };
 

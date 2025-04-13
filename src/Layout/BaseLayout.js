@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Header from "../Components/Header";
+import Header from "../Components/Ui/Header";
 
-import Sidebar from "../Components/Sidebar";
+import Sidebar from "../Components/Ui/Sidebar";
 
 const BaseLayout = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);

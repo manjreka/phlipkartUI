@@ -1,5 +1,8 @@
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
+
 const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+const token = Cookies.get("token");
 
 const apiCallGet = async (url) => {
   try {
@@ -7,6 +10,7 @@ const apiCallGet = async (url) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     };
     const response = await fetch(url, option);
@@ -21,7 +25,7 @@ const apiCallGet = async (url) => {
   }
 };
 
-const apiService = {
+const PrivateApiServices = {
   getAll: async (link) => {
     const url = `${BASE_URL}${link}`;
     const responseData = await apiCallGet(url);
@@ -37,4 +41,4 @@ const apiService = {
   deleteOne: async (id) => {},
 };
 
-export default apiService;
+export default PrivateApiServices;

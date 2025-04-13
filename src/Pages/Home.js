@@ -7,7 +7,8 @@ const Home = () => {
   const [product, setProduct] = useState([]);
 
   const fetchData = async () => {
-    const response = await apiService.getAll();
+    const url = "/api/products/getProducts";
+    const response = await apiService.getAll(url);
     setProduct(response);
   };
 
