@@ -33,10 +33,6 @@ const ProductDetailsCard = (props) => {
     }
   };
 
-  const cartItems = useSelector((state) => state.cart.items);
-
-  console.log(cartItems, "cart details");
-
   return (
     <div>
       <img

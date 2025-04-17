@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import BaseLayout from "../Layout/BaseLayout";
 import ProductCard from "../Components/ProductCard";
 import apiService from "../API/apiServices";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const [product, setProduct] = useState([]);

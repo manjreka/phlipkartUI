@@ -20,3 +20,13 @@ export const loadCartFromDB = async () => {
   const db = await getDB();
   return await db.get(STORE_NAME, "cartData");
 };
+
+export const saveAddressToDB = async (address) => {
+  const db = await getDB();
+  await db.put(STORE_NAME, address, "address");
+};
+
+export const loadAddressFromDB = async () => {
+  const db = await getDB();
+  return await db.get(STORE_NAME, "address");
+};

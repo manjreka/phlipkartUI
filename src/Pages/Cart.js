@@ -3,11 +3,10 @@ import CartCard from "../Components/CartCard";
 import { useSelector, useDispatch } from "react-redux";
 import MainLayout from "../Layout/MainLayout";
 import { clearCart } from "../Store/Slices/CartSlice";
-
+import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const items = useSelector((state) => state.cart.items);
-  console.log(items, "updated items in cart");
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const clearCartItems = () => {
@@ -26,6 +25,15 @@ const Cart = () => {
         className="bg-orange-700 p-2 m-2 text-white rounded-md font-bold "
       >
         Clear Cart
+      </button>
+
+      <button
+        onClick={() => {
+          navigate("/checkout");
+        }}
+        className="bg-green-700 p-2 m-2 text-white rounded-md font-bold "
+      >
+        Chcekout
       </button>
     </MainLayout>
   );
