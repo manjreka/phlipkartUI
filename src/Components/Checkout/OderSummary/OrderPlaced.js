@@ -1,15 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useBillingDetails from "../../../Hooks/useBillingDetails";
+import { clearCart } from "../../../Store/Slices/CartSlice";
+import { clearAddress } from "../../../Store/Slices/checkoutSlice";
+import { useDispatch } from "react-redux";
 // import { format } from "date-fns";
 
 const OrderPlaced = ({ order }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { selectedShipping, cartProducts } = order;
 
   const { subtotal, deliveryAmt, tax, grandTotal } =
     useBillingDetails(cartProducts);
+
+  const handleCleanUp = () => {
+    dispatch(clearCart());
+    dispatch(clearAddress());
+  };
+
+  useEffect(() => {
+    // this part of code runs once when component mounts
+    return () => {
+      // this part of code will run when component unmounts
+      handleCleanUp();
+    };
+  }, []);
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -110,6 +127,7 @@ const OrderPlaced = ({ order }) => {
         <button
           onClick={() => {
             navigate("/");
+            handleCleanUp();
           }}
           className="bg-orange-700 p-2 m-2 mt-3 text-white rounded-md font-bold "
         >

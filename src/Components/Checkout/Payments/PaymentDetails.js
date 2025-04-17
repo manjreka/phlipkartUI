@@ -12,13 +12,17 @@ import { FaRupeeSign } from "react-icons/fa";
 
 const KEY = process.env.REACT_APP_KEY;
 
-const PaymentDetails = ({ increamentStep, decreamentStep }) => {
+const PaymentDetails = ({ decreamentStep }) => {
   const products = useSelector((state) => state.cart.items);
+  const address = useSelector((state) => state.checkout.shippingDetails);
+
+  const details = {
+    products,
+    shippingAddress: address._id,
+  };
   const token = Cookies.get("token");
 
-  const cartProducts = useSelector((state) => state.cart.items);
-
-  const { grandTotal = 0 } = useBillingDetails(cartProducts) || {};
+  const { grandTotal = 0 } = useBillingDetails(products) || {};
 
   const makePayment = async () => {
     const stripe = await loadStripe(KEY);
@@ -30,7 +34,7 @@ const PaymentDetails = ({ increamentStep, decreamentStep }) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(products),
+      body: JSON.stringify(details),
     };
 
     const response = await fetch(url, option);

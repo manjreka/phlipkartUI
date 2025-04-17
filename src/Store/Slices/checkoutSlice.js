@@ -15,8 +15,10 @@ const checkoutSlice = createSlice({
     setAddress: (state, action) => {
       state.shippingDetails = action.payload;
     },
+    clearAddress: () => initialState,
   },
 });
 
-export const { updateShippingDetails, setAddress } = checkoutSlice.actions;
+export const { updateShippingDetails, setAddress, clearAddress } =
+  checkoutSlice.actions;
 export default checkoutSlice.reducer;
