@@ -123,13 +123,13 @@ const OrderPlaced = ({ order }) => {
         </p>
       </div>
 
-      <div className="flex justify-end items-center">
+      <div className="flex justify-end items-center mt-5">
         <button
           onClick={() => {
             navigate("/");
             handleCleanUp();
           }}
-          className="bg-orange-700 p-2 m-2 mt-3 text-white rounded-md font-bold "
+          className="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-md transition"
         >
           Continue Shopping
         </button>

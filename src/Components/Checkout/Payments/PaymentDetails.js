@@ -60,25 +60,25 @@ const PaymentDetails = ({ decreamentStep }) => {
         {grandTotal}
       </p>
 
-      <div className="flex gap-5 rounded-md text-center m-3 p-3">
+      <div className="flex justify-center gap-5 rounded-md text-center m-3 p-3">
         <div className="flex flex-col items-center">
           <p className="text-center  bg-cyan-100 p-2 rounded-full ">
             <RiSecurePaymentFill size={30} />{" "}
           </p>
-          <p>Secure Payment</p>
+          <p className="text-xs md:text-sm lg:text-md">Secure Payment</p>
         </div>
         <div className="flex flex-col items-center">
           <p className="text-center  bg-cyan-100 p-2 rounded-full ">
             <FaTruck size={30} />{" "}
           </p>
-          <p>Free Delivery</p>
+          <p className="text-xs md:text-sm lg:text-md">Free Delivery</p>
         </div>
 
         <div className="flex flex-col items-center">
           <p className="text-center  bg-cyan-100 p-2 rounded-full ">
             <CiClock1 size={30} />{" "}
           </p>
-          <p>30-Days Return</p>
+          <p className="text-xs md:text-sm lg:text-md">30-Days Return</p>
         </div>
       </div>
 
@@ -100,7 +100,7 @@ const PaymentDetails = ({ decreamentStep }) => {
         <p className="w-[45px] h-[25px] bg-cyan-500 rounded-sm" />
       </div>
 
-      <div className="p-4 bg-white text-center space-y-4">
+      <div className="p-4 bg-white flex justify-center flex-col items-center  space-y-4">
         <div className="space-y-1 text-sm text-gray-700">
           <div className="flex items-center gap-2 font-semibold text-base">
             <Star className="text-yellow-500 w-5 h-5" />
@@ -146,7 +146,7 @@ const PaymentDetails = ({ decreamentStep }) => {
       <div className="flex justify-start items-center ">
         <button
           onClick={decreamentStep}
-          className="bg-orange-700 p-2 m-1 rounded-md text-white font-bold"
+          className="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-md transition"
         >
           previous
         </button>

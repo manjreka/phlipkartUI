@@ -65,13 +65,13 @@ const ShippingDetails = ({
       <div className="flex justify-between items-center mt-5 ">
         <button
           onClick={decreamentStep}
-          className="bg-orange-700 p-2 m-1 rounded-md text-white font-bold"
+          className="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-md transition"
         >
           previous
         </button>
         <button
           onClick={increamentStep}
-          className="bg-orange-700 p-2 m-1 rounded-md text-white font-bold"
+          className="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-md transition"
         >
           next
         </button>

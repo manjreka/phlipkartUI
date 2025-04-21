@@ -5,18 +5,27 @@ import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 import { FaShopware } from "react-icons/fa";
 import Cookies from "js-cookie";
+import { Spinner } from "reactstrap";
 
 const Login = () => {
   const [userDetails, setuserDetails] = useState({});
   const [viewPassword, setsetViewPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const onRegisterUser = async () => {
+    setIsLoading(true);
     const response = await authServices.loginUser(userDetails);
-    if (response.token) {
-      const { token } = response;
+    setIsLoading(false);
+
+    console.log(response, "///////");
+    if (response.info.token) {
+      const { token, userId } = response?.info;
+
+      console.log(token, userId);
       Cookies.set("token", token, { expires: 30 });
+      Cookies.set("userId", userId, { expires: 30 });
       navigate("/");
     }
   };
@@ -58,9 +67,17 @@ const Login = () => {
 
       <button
         onClick={onRegisterUser}
+        disabled={isLoading}
         className="bg-orange-700 p-2 m-1 rounded-md text-white font-bold"
       >
-        Login
+        {isLoading ? (
+          <>
+            <Spinner color="primary"> Loading...</Spinner>
+            <span>Loading...</span>
+          </>
+        ) : (
+          "Login"
+        )}
       </button>
       <p
         onClick={() => {

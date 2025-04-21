@@ -6,7 +6,7 @@ const MainLayout = ({ children }) => {
     <div>
       <Header />
       <div>
-        <main className="flex justify-center items-center h-full m-3 flex-wrap">
+        <main className="flex flex-col justify-center items-center h-full w-[95vw] m-3 flex-wrap">
           {children}
         </main>
       </div>

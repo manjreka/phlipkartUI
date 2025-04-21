@@ -4,15 +4,20 @@ import authServices from "../API/authApiServices";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 import { FaShopware } from "react-icons/fa";
+import { Spinner } from "reactstrap";
 
 const Register = () => {
   const [userDetails, setuserDetails] = useState({});
   const [viewPassword, setsetViewPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const onRegisterUser = async () => {
+    setIsLoading(true);
     const response = await authServices.registerUser(userDetails);
+    setIsLoading(false);
+
     if (response.message) {
       navigate("/login");
     }
@@ -78,9 +83,17 @@ const Register = () => {
 
       <button
         onClick={onRegisterUser}
+        disabled={isLoading}
         className="bg-orange-700 p-2 m-1 rounded-md text-white font-bold"
       >
-        Register
+        {isLoading ? (
+          <>
+            <Spinner color="primary"> Loading...</Spinner>
+            <span>Loading...</span>
+          </>
+        ) : (
+          "Register"
+        )}
       </button>
       <p
         onClick={() => {
