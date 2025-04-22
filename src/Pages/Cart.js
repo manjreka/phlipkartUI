@@ -6,6 +6,7 @@ import { clearCart } from "../Store/Slices/CartSlice";
 import { useNavigate } from "react-router-dom";
 import useBillingDetails from "../Hooks/useBillingDetails";
 import { FiShoppingCart } from "react-icons/fi";
+import PrivateApiServices from "../API/privateApiServices";
 
 const Cart = () => {
   const items = useSelector((state) => state.cart.items);
@@ -16,7 +17,27 @@ const Cart = () => {
     dispatch(clearCart());
   };
 
-  const { subtotal, tax, deliveryAmt, grandTotal } = useBillingDetails(items);
+  const { subtotal } = useBillingDetails(items);
+
+  const handleCheckout = async () => {
+    // "/api/cart/configureCart";
+
+    const url = "http://localhost:1414/api/cart/configureCart";
+
+    const cartItemsInfo = items.map((each) => ({
+      productId: each.id,
+      quantity: each.qty,
+    }));
+
+    const response = await PrivateApiServices.create(url, cartItemsInfo, true);
+
+    if (response === "Cart updated successfully!!") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <MainLayout>
       <div className="flex justify-between items-center w-[75vw] mb-5 ">
@@ -68,8 +89,11 @@ const Cart = () => {
           <p className="font-bold text-2xl me-2 mb-3">Total: {subtotal}/-</p>
           <div>
             <button
-              onClick={() => {
-                navigate("/checkout");
+              onClick={async () => {
+                const success = await handleCheckout();
+                if (success) {
+                  navigate("/checkout");
+                }
               }}
               className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-md transition"
             >

@@ -6,17 +6,41 @@ import { IoPerson } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
+import PrivateApiServices from "../../API/privateApiServices";
 
 const Header = () => {
+  const items = useSelector((state) => state.cart.items);
+
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const toggleMenu = () => {
     setIsOpen((prevstate) => !prevstate);
   };
 
-  const logoutUser = () => {
-    Cookies.remove("token");
-    navigate("/");
+  const handleCheckout = async () => {
+    // "/api/cart/configureCart";
+    const url = "http://localhost:1414/api/cart/configureCart";
+
+    const cartItemsInfo = items.map((each) => ({
+      productId: each.id,
+      quantity: each.qty,
+    }));
+
+    const response = await PrivateApiServices.create(url, cartItemsInfo, true);
+
+    if (response === "Cart updated successfully!!") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const logoutUser = async () => {
+    const success = await handleCheckout();
+    if (success) {
+      Cookies.remove("token");
+      navigate("/");
+    }
   };
 
   const cartItems = useSelector((state) => state.cart.items);

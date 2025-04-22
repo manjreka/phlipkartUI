@@ -38,8 +38,6 @@ const Checkout = () => {
     setStep((prevState) => prevState - 1);
   };
 
-  console.log(state?.newStep, "new step");
-
   useEffect(() => {
     if (newStep) {
       setStep(newStep);

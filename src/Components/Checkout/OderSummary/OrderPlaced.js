@@ -21,9 +21,7 @@ const OrderPlaced = ({ order }) => {
   };
 
   useEffect(() => {
-    // this part of code runs once when component mounts
     return () => {
-      // this part of code will run when component unmounts
       handleCleanUp();
     };
   }, []);
