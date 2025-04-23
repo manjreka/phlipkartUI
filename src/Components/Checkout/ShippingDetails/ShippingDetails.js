@@ -33,22 +33,20 @@ const ShippingDetails = ({
   return (
     <div className="p-5  w-[80vw]">
       <h1 className="font-bold mb-3  text-xl">ShippingDetails</h1>
-      <div className="flex flex-wrap justify-center items-center ">
-        {showForm || (
-          <button
-            onClick={toggleAddressButton}
-            className="border-2 p-2 m-2 bg-blue-700 text-white rounded-md flex gap-1 "
-          >
-            <IoMdAdd size={25} />
-            <span className="font-medium"> Add Address</span>
-          </button>
-        )}
-      </div>
+
       {showForm && (
         <ShippingDetailsForm toggleAddressButton={toggleAddressButton} />
       )}
-      {userAddress?.length === 0 ? (
-        <NoAddressFoundCard />
+      {userAddress?.length === 0 && !showForm ? (
+        <div className="flex flex-col justify-center items-center border border-dashed rounded-2xl bg-gray-50 shadow-sm pb-3">
+          <NoAddressFoundCard />
+          <button
+            onClick={toggleAddressButton}
+            className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition"
+          >
+            Add New Address
+          </button>
+        </div>
       ) : (
         <ul className="flex justify-center items-center flex-wrap gap-5 mb-3">
           {userAddress?.map((address) => (

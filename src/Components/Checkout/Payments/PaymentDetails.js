@@ -27,7 +27,7 @@ const PaymentDetails = ({ decreamentStep }) => {
   const makePayment = async () => {
     const stripe = await loadStripe(KEY);
 
-    const url = "https://ecommserver-iw07.onrender.com/api/payment/pay";
+    const url = "https://phlipkart.onrender.com/api/payment/pay";
     const option = {
       method: "POST",
       headers: {

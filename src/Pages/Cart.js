@@ -20,16 +20,14 @@ const Cart = () => {
   const { subtotal } = useBillingDetails(items);
 
   const handleCheckout = async () => {
-    // "/api/cart/configureCart";
-
-    const url = "http://localhost:1414/api/cart/configureCart";
+    const url = "/api/cart/configureCart";
 
     const cartItemsInfo = items.map((each) => ({
       productId: each.id,
       quantity: each.qty,
     }));
 
-    const response = await PrivateApiServices.create(url, cartItemsInfo, true);
+    const response = await PrivateApiServices.create(url, cartItemsInfo);
 
     if (response === "Cart updated successfully!!") {
       return true;

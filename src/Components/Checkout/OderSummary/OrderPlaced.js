@@ -1,17 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useBillingDetails from "../../../Hooks/useBillingDetails";
 import { clearCart } from "../../../Store/Slices/CartSlice";
 import { clearAddress } from "../../../Store/Slices/checkoutSlice";
 import { useDispatch } from "react-redux";
-// import { format } from "date-fns";
 
 const OrderPlaced = ({ order }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { selectedShipping, cartProducts } = order;
-
   const { subtotal, deliveryAmt, tax, grandTotal } =
     useBillingDetails(cartProducts);
 
@@ -21,10 +19,18 @@ const OrderPlaced = ({ order }) => {
   };
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      handleContinueShopping();
+    }, 3000);
     return () => {
-      handleCleanUp();
+      clearTimeout(timer);
     };
   }, []);
+
+  const handleContinueShopping = () => {
+    handleCleanUp(); // Clean up state on button click
+    navigate("/"); // Navigate to homepage or other page
+  };
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -57,7 +63,7 @@ const OrderPlaced = ({ order }) => {
             <h2 className="text-lg font-semibold mb-3">🧾 Order Info</h2>
             <p>
               <span className="font-medium">Order Date:</span>{" "}
-              {/* {format(new Date(selectedShipping.createdAt), "PPPpp")} */}
+              {/* Add formatted date */}
             </p>
             <p>
               <span className="font-medium">Status:</span> Processing
@@ -123,10 +129,7 @@ const OrderPlaced = ({ order }) => {
 
       <div className="flex justify-end items-center mt-5">
         <button
-          onClick={() => {
-            navigate("/");
-            handleCleanUp();
-          }}
+          onClick={handleContinueShopping}
           className="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-md transition"
         >
           Continue Shopping

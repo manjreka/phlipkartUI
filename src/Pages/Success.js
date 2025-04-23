@@ -1,7 +1,7 @@
 import React from "react";
 import Confetti from "react-confetti";
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import useBillingDetails from "../Hooks/useBillingDetails";
 import { useNavigate } from "react-router-dom";
 
@@ -15,19 +15,16 @@ const Success = () => {
   const { grandTotal = 0 } = useBillingDetails(cartProducts) || {};
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowConfetti(false), 5000); // 5 seconds
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigate("/checkout", {
-        state: { newStep: 4 },
-      });
+    const confettiTimer = setTimeout(() => setShowConfetti(false), 5000);
+    const navigateTimer = setTimeout(() => {
+      navigate("/checkout", { state: { newStep: 4 } });
     }, 6000);
 
-    return () => clearTimeout(timer);
-  }, [navigate]);
+    return () => {
+      clearTimeout(confettiTimer);
+      clearTimeout(navigateTimer);
+    };
+  }, []);
 
   return (
     <div className="flex flex-col justify-center items-center min-h-[75vh] my-6 gap-3">

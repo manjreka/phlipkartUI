@@ -1,44 +1,40 @@
 import { FaChevronDown } from "react-icons/fa";
 import MainLayout from "../Layout/MainLayout";
-
-const orders = [
-  {
-    id: "ORD-2023-4829",
-    date: "April 12, 2023",
-    status: "Delivered",
-    amount: "$329.97",
-    items: 2,
-  },
-  {
-    id: "ORD-2023-3756",
-    date: "March 28, 2023",
-    status: "Delivered",
-    amount: "$149.95",
-    items: 2,
-  },
-  {
-    id: "ORD-2023-2915",
-    date: "February 15, 2023",
-    status: "Returned",
-    amount: "$89.99",
-    items: 1,
-  },
-  {
-    id: "ORD-2023-1842",
-    date: "January 5, 2023",
-    status: "Shipped",
-    amount: "$199.98",
-    items: 1,
-  },
-];
+import { useEffect, useState } from "react";
+import PrivateApiServices from "../API/privateApiServices";
 
 const statusStyles = {
-  Delivered: "bg-green-100 text-green-700",
-  Returned: "bg-purple-100 text-purple-700",
+  pending: "bg-green-100 text-red-700",
+  paid: "bg-purple-100 text-purple-700",
   Shipped: "bg-blue-100 text-blue-700",
 };
 
-export default function OrderHistory() {
+const OrderHistory = () => {
+  const [orders, setOrderList] = useState([]);
+  const [viewDetails, setViewDetails] = useState(false);
+  const [activeTab, setActiveTab] = useState("");
+
+  const fetchOrderDetails = async () => {
+    // const url = "/api/cart/configureCart";
+    const url = " http://localhost:1414/api/order/getOrders";
+
+    const response = await PrivateApiServices.getAll(url, true);
+
+    console.log(response);
+
+    setOrderList(response);
+  };
+
+  useEffect(() => {
+    fetchOrderDetails();
+  }, []);
+
+  const toggleViewDataTab = (id) => {
+    console.log(id, "/**********/");
+    setActiveTab(id);
+    setViewDetails((prevState) => !prevState);
+  };
+
   return (
     <MainLayout>
       <div className="px-4 py-8 w-[80%]">
@@ -61,42 +57,88 @@ export default function OrderHistory() {
 
         {/* Orders List */}
         <div className="space-y-4">
-          {orders.map((order) => (
-            <div
-              key={order.id}
-              className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 border rounded-lg shadow-sm bg-white"
-            >
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center gap-2">
-                  <span className="font-semibold text-lg">{order.id}</span>
-                  <span
-                    className={`text-sm font-medium px-2 py-1 rounded-full ${
-                      statusStyles[order.status]
-                    }`}
-                  >
-                    {order.status}
-                  </span>
-                </div>
-                <span className="text-sm text-gray-500">
-                  Ordered on {order.date}
-                </span>
-              </div>
+          {orders.map((order) => {
+            const totalItems = order.products.reduce(
+              (acc, item) => acc + item.quantity,
+              0
+            );
+            const formattedDate = new Date(order.createdAt).toLocaleDateString(
+              "en-IN",
+              {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+              }
+            );
 
-              <div className="flex items-center justify-between w-full md:w-auto mt-4 md:mt-0 gap-4">
-                <div className="text-right">
-                  <div className="font-bold text-gray-800">{order.amount}</div>
-                  <div className="text-sm text-gray-500">
-                    {order.items} {order.items === 1 ? "item" : "items"}
+            return (
+              <div className=" border rounded-lg shadow-sm">
+                <div
+                  key={order._id}
+                  className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 bg-white"
+                >
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold text-lg">
+                        {order._id.slice(0, 8)}...
+                      </span>
+                      <span
+                        className={`text-sm font-medium px-2 py-1 rounded-full ${
+                          statusStyles[order.status] ||
+                          "bg-gray-200 text-gray-800"
+                        }`}
+                      >
+                        {order.status}
+                      </span>
+                    </div>
+                    <span className="text-sm text-gray-500">
+                      Ordered on {formattedDate}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between w-full md:w-auto mt-4 md:mt-0 gap-4">
+                    <div className="text-right">
+                      <div className="font-bold text-gray-800">
+                        ₹{order.billingDetails.totalAmt.toFixed(2)}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {totalItems} {totalItems === 1 ? "item" : "items"}
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => toggleViewDataTab(order._id)}
+                      className="flex items-center gap-1 px-4 py-2 border font-medium rounded-md text-sm hover:bg-gray-100 transition"
+                    >
+                      View Details <FaChevronDown className="text-xs" />
+                    </button>
                   </div>
                 </div>
-                <button className="flex items-center gap-1 px-4 py-2 border font-medium rounded-md text-sm hover:bg-gray-100 transition">
-                  View Details <FaChevronDown className="text-xs" />
-                </button>
+
+                {activeTab === order._id &&
+                  viewDetails &&
+                  order?.products?.map((each) => (
+                    <ul
+                      key={each._id}
+                      className="p-4 my-2 border-t bg-white space-y-1"
+                    >
+                      <li className="text-lg font-semibold text-gray-800">
+                        {each.productId.title}
+                      </li>
+                      <li className="text-gray-600">
+                        Price: ₹{each.productId.price}
+                      </li>
+                      <li className="text-gray-600">
+                        Quantity: {each.quantity}
+                      </li>
+                    </ul>
+                  ))}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </MainLayout>
   );
-}
+};
+
+export default OrderHistory;

@@ -18,15 +18,15 @@ const Header = () => {
   };
 
   const handleCheckout = async () => {
-    // "/api/cart/configureCart";
-    const url = "http://localhost:1414/api/cart/configureCart";
+    const url = "/api/cart/configureCart";
+    // const url = "http://localhost:1414/api/cart/configureCart";
 
     const cartItemsInfo = items.map((each) => ({
       productId: each.id,
       quantity: each.qty,
     }));
 
-    const response = await PrivateApiServices.create(url, cartItemsInfo, true);
+    const response = await PrivateApiServices.create(url, cartItemsInfo);
 
     if (response === "Cart updated successfully!!") {
       return true;
@@ -90,8 +90,8 @@ const Header = () => {
           <Link to="/cart">
             <p className="mb-2 relative inline-block  text-gray-700 font-medium hover:text-blue-600">
               Cart{" "}
-              <span className="absolute -top-2 -right-2 text-xs bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center">
-                4
+              <span className="absolute -top-2 -right-2 text-xs bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center">
+                {cartItems?.length}
               </span>
             </p>
           </Link>

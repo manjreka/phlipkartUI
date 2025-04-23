@@ -8,11 +8,6 @@ import OrderPlaced from "../Components/Checkout/OderSummary/OrderPlaced";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-// const defaultState = {
-//   productData: [],
-//   shippingData: {},
-// };
-
 const steps = ["Billing", "Shipping", "Payment", "Summary"];
 
 const Checkout = () => {
@@ -42,7 +37,7 @@ const Checkout = () => {
     if (newStep) {
       setStep(newStep);
     }
-  }, []);
+  }, [newStep]);
 
   const stepComponent = () => {
     switch (step) {
